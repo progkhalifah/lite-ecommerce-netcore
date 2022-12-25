@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<link href="~/lib/datatables/css/jquery.datatables.css" rel="stylesheet" />
+<link href="~/lib/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Roles</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Add New Roles</a>
+    </div>
+</div>
+
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                Name
+            </th>
+            <th></th>
+            
+        </tr>
+        <tbody>
+            @foreach (var item in ViewBag.Roles)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td style="width: 150px;">
+                        <div class="btn-group">
+                            <a asp-action="Edit" asp-controller="Role" class="btn btn-primary mr-1" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                            <a asp-action="Details" asp-controller="Role" class="btn btn-success mr-1" asp-route-id="@item.Id"><i class="fas fa-list"></i></a>
+                            <a asp-action="Delete" asp-controller="Role" class="btn btn-danger mr-1" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+@section scripts{
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var updateRole = '@TempData["updateRole"]'
+            if (updateRole != '') {
+                alertify.success(updateRole);
+            }
+        })
+        $(function () {
+            var roleExist = '@TempData["deleteRole"]'
+            if (roleExist != '') {
+                alertify.success(roleExist);
+            }
+        })
+    </script>
+}
